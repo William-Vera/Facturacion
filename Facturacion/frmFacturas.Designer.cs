@@ -83,6 +83,7 @@
             // panel3
             // 
             panel3.AutoScroll = true;
+            panel3.BorderStyle = BorderStyle.Fixed3D;
             panel3.Controls.Add(dataGridView1);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(3, 92);
@@ -111,7 +112,7 @@
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(1182, 468);
+            dataGridView1.Size = new Size(1178, 464);
             dataGridView1.TabIndex = 11;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
@@ -142,6 +143,7 @@
             // comboBox1
             // 
             comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "CLIENTE", "EMPLEADO", "FECHA", "TOTAL" });
             comboBox1.Location = new Point(758, 29);
@@ -175,7 +177,7 @@
             // 
             // txttotal
             // 
-            txttotal.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txttotal.Font = new Font("Times New Roman", 12F);
             txttotal.Location = new Point(403, 40);
             txttotal.Margin = new Padding(15, 3, 15, 3);
             txttotal.Name = "txttotal";
@@ -196,7 +198,7 @@
             // 
             // txtfecha
             // 
-            txtfecha.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtfecha.Font = new Font("Times New Roman", 12F);
             txtfecha.Location = new Point(243, 40);
             txtfecha.Margin = new Padding(15, 3, 15, 3);
             txtfecha.Name = "txtfecha";
@@ -216,7 +218,7 @@
             // 
             // txtfactura
             // 
-            txtfactura.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtfactura.Font = new Font("Times New Roman", 12F);
             txtfactura.Location = new Point(165, 40);
             txtfactura.Margin = new Padding(15, 3, 15, 3);
             txtfactura.Name = "txtfactura";
@@ -249,7 +251,7 @@
             // 
             // txtcliente
             // 
-            txtcliente.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtcliente.Font = new Font("Times New Roman", 12F);
             txtcliente.Location = new Point(7, 40);
             txtcliente.Margin = new Padding(15, 3, 15, 3);
             txtcliente.MaxLength = 10;
@@ -273,7 +275,7 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Left;
-            txtBuscar.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtBuscar.Font = new Font("Times New Roman", 12F);
             txtBuscar.Location = new Point(553, 30);
             txtBuscar.Margin = new Padding(10, 3, 30, 3);
             txtBuscar.MaxLength = 10;

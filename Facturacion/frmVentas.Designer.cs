@@ -166,7 +166,7 @@
             // 
             // comboBox1
             // 
-            comboBox1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            comboBox1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(22, 46);
             comboBox1.Name = "comboBox1";
@@ -176,7 +176,7 @@
             // 
             // comboBox2
             // 
-            comboBox2.Font = new Font("Arial", 12F, FontStyle.Bold);
+            comboBox2.Font = new Font("Times New Roman", 12F);
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(205, 46);
             comboBox2.Name = "comboBox2";
@@ -185,7 +185,7 @@
             // 
             // dateTimePicker1
             // 
-            dateTimePicker1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePicker1.Font = new Font("Times New Roman", 12F);
             dateTimePicker1.Location = new Point(461, 46);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(212, 26);
@@ -193,7 +193,7 @@
             // 
             // textBox1
             // 
-            textBox1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Font = new Font("Times New Roman", 12F);
             textBox1.Location = new Point(354, 46);
             textBox1.MaxLength = 3;
             textBox1.Name = "textBox1";

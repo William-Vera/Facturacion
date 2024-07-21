@@ -102,6 +102,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.BorderStyle = BorderStyle.Fixed3D;
             tabPage1.Controls.Add(panel2);
             tabPage1.Controls.Add(panel1);
             tabPage1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -115,11 +116,12 @@
             // 
             // panel2
             // 
+            panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(dgvAggProductos);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 103);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1186, 312);
+            panel2.Size = new Size(1182, 308);
             panel2.TabIndex = 34;
             // 
             // dgvAggProductos
@@ -133,7 +135,7 @@
             dgvAggProductos.Name = "dgvAggProductos";
             dgvAggProductos.ReadOnly = true;
             dgvAggProductos.ScrollBars = ScrollBars.Vertical;
-            dgvAggProductos.Size = new Size(1186, 312);
+            dgvAggProductos.Size = new Size(1178, 304);
             dgvAggProductos.TabIndex = 22;
             dgvAggProductos.CellClick += dgvAggProductos_CellClick;
             // 
@@ -153,16 +155,17 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1186, 100);
+            panel1.Size = new Size(1182, 100);
             panel1.TabIndex = 33;
             panel1.Paint += panel1_Paint;
             // 
             // comboBox1
             // 
             comboBox1.Anchor = AnchorStyles.Right;
+            comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "NOMBRE", "PRECIO_UNITARIO" });
-            comboBox1.Location = new Point(716, 33);
+            comboBox1.Location = new Point(712, 33);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(163, 27);
             comboBox1.TabIndex = 34;
@@ -171,7 +174,7 @@
             // 
             btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnBuscar.Location = new Point(903, 29);
+            btnBuscar.Location = new Point(899, 29);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(77, 35);
             btnBuscar.TabIndex = 33;
@@ -183,7 +186,7 @@
             // 
             button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button1.Font = new Font("Arial", 12F, FontStyle.Bold);
-            button1.Location = new Point(997, 29);
+            button1.Location = new Point(993, 29);
             button1.Name = "button1";
             button1.Size = new Size(77, 35);
             button1.TabIndex = 30;
@@ -228,7 +231,7 @@
             // 
             btnAggProductos.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAggProductos.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAggProductos.Location = new Point(1089, 29);
+            btnAggProductos.Location = new Point(1085, 29);
             btnAggProductos.Name = "btnAggProductos";
             btnAggProductos.Size = new Size(77, 35);
             btnAggProductos.TabIndex = 29;
@@ -239,7 +242,7 @@
             // txtPrecioProducto
             // 
             txtPrecioProducto.Anchor = AnchorStyles.Left;
-            txtPrecioProducto.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtPrecioProducto.Font = new Font("Times New Roman", 12F);
             txtPrecioProducto.Location = new Point(266, 37);
             txtPrecioProducto.MaxLength = 8;
             txtPrecioProducto.Name = "txtPrecioProducto";
@@ -250,7 +253,7 @@
             // txtNombreProducto
             // 
             txtNombreProducto.Anchor = AnchorStyles.Left;
-            txtNombreProducto.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtNombreProducto.Font = new Font("Times New Roman", 12F);
             txtNombreProducto.Location = new Point(19, 37);
             txtNombreProducto.Name = "txtNombreProducto";
             txtNombreProducto.Size = new Size(222, 26);
@@ -259,7 +262,7 @@
             // txtBuscarProducto
             // 
             txtBuscarProducto.Anchor = AnchorStyles.Left;
-            txtBuscarProducto.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtBuscarProducto.Font = new Font("Times New Roman", 12F);
             txtBuscarProducto.Location = new Point(485, 33);
             txtBuscarProducto.MaxLength = 10;
             txtBuscarProducto.Name = "txtBuscarProducto";
@@ -269,6 +272,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.BorderStyle = BorderStyle.Fixed3D;
             tabPage2.Controls.Add(panel4);
             tabPage2.Controls.Add(panel3);
             tabPage2.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -283,11 +287,12 @@
             // 
             // panel4
             // 
+            panel4.BorderStyle = BorderStyle.Fixed3D;
             panel4.Controls.Add(dgvEditar);
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(3, 103);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1186, 312);
+            panel4.Size = new Size(1182, 308);
             panel4.TabIndex = 35;
             // 
             // dgvEditar
@@ -301,7 +306,7 @@
             dgvEditar.Name = "dgvEditar";
             dgvEditar.ReadOnly = true;
             dgvEditar.ScrollBars = ScrollBars.Vertical;
-            dgvEditar.Size = new Size(1186, 312);
+            dgvEditar.Size = new Size(1178, 304);
             dgvEditar.TabIndex = 22;
             dgvEditar.CellClick += dgvEditar_CellClick;
             dgvEditar.CellContentClick += dgvEditar_CellContentClick;
@@ -322,15 +327,16 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(3, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1186, 100);
+            panel3.Size = new Size(1182, 100);
             panel3.TabIndex = 34;
             // 
             // comboBox2
             // 
             comboBox2.Anchor = AnchorStyles.Right;
+            comboBox2.Font = new Font("Times New Roman", 12F);
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "NOMBRE", "PRECIO_UNITARIO" });
-            comboBox2.Location = new Point(716, 33);
+            comboBox2.Location = new Point(712, 33);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(163, 27);
             comboBox2.TabIndex = 36;
@@ -339,7 +345,7 @@
             // 
             btnBuscarEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscarEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnBuscarEditar.Location = new Point(903, 29);
+            btnBuscarEditar.Location = new Point(899, 29);
             btnBuscarEditar.Name = "btnBuscarEditar";
             btnBuscarEditar.Size = new Size(77, 35);
             btnBuscarEditar.TabIndex = 35;
@@ -351,7 +357,7 @@
             // 
             btnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnEditar.Location = new Point(1089, 29);
+            btnEditar.Location = new Point(1085, 29);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(77, 35);
             btnEditar.TabIndex = 29;
@@ -362,7 +368,7 @@
             // txtPrecioEdit
             // 
             txtPrecioEdit.Anchor = AnchorStyles.Left;
-            txtPrecioEdit.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtPrecioEdit.Font = new Font("Times New Roman", 12F);
             txtPrecioEdit.Location = new Point(266, 37);
             txtPrecioEdit.Name = "txtPrecioEdit";
             txtPrecioEdit.Size = new Size(123, 26);
@@ -383,7 +389,7 @@
             // 
             btnLimpiarEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLimpiarEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnLimpiarEditar.Location = new Point(997, 29);
+            btnLimpiarEditar.Location = new Point(993, 29);
             btnLimpiarEditar.Name = "btnLimpiarEditar";
             btnLimpiarEditar.Size = new Size(77, 35);
             btnLimpiarEditar.TabIndex = 30;
@@ -416,7 +422,7 @@
             // txtNombreProEdi
             // 
             txtNombreProEdi.Anchor = AnchorStyles.Left;
-            txtNombreProEdi.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtNombreProEdi.Font = new Font("Times New Roman", 12F);
             txtNombreProEdi.Location = new Point(19, 37);
             txtNombreProEdi.Name = "txtNombreProEdi";
             txtNombreProEdi.Size = new Size(222, 26);
@@ -426,7 +432,7 @@
             // txtBuscarEditar
             // 
             txtBuscarEditar.Anchor = AnchorStyles.Left;
-            txtBuscarEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtBuscarEditar.Font = new Font("Times New Roman", 12F);
             txtBuscarEditar.Location = new Point(485, 33);
             txtBuscarEditar.MaxLength = 10;
             txtBuscarEditar.Name = "txtBuscarEditar";
@@ -436,6 +442,7 @@
             // 
             // tabPage3
             // 
+            tabPage3.BorderStyle = BorderStyle.Fixed3D;
             tabPage3.Controls.Add(panel6);
             tabPage3.Controls.Add(panel5);
             tabPage3.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -449,11 +456,12 @@
             // 
             // panel6
             // 
+            panel6.BorderStyle = BorderStyle.Fixed3D;
             panel6.Controls.Add(dgvEliminar);
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(3, 103);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1186, 312);
+            panel6.Size = new Size(1182, 308);
             panel6.TabIndex = 45;
             // 
             // dgvEliminar
@@ -467,7 +475,7 @@
             dgvEliminar.Name = "dgvEliminar";
             dgvEliminar.ReadOnly = true;
             dgvEliminar.ScrollBars = ScrollBars.Vertical;
-            dgvEliminar.Size = new Size(1186, 312);
+            dgvEliminar.Size = new Size(1178, 304);
             dgvEliminar.TabIndex = 33;
             dgvEliminar.CellClick += dgvEliminar_CellClick;
             // 
@@ -487,15 +495,16 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(3, 3);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1186, 100);
+            panel5.Size = new Size(1182, 100);
             panel5.TabIndex = 44;
             // 
             // comboBox3
             // 
             comboBox3.Anchor = AnchorStyles.Right;
+            comboBox3.Font = new Font("Times New Roman", 12F);
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "NOMBRE", "PRECIO_UNITARIO" });
-            comboBox3.Location = new Point(716, 33);
+            comboBox3.Location = new Point(712, 33);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(163, 27);
             comboBox3.TabIndex = 45;
@@ -504,7 +513,7 @@
             // 
             btnBuscarEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscarEliminar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnBuscarEliminar.Location = new Point(903, 29);
+            btnBuscarEliminar.Location = new Point(899, 29);
             btnBuscarEliminar.Name = "btnBuscarEliminar";
             btnBuscarEliminar.Size = new Size(77, 35);
             btnBuscarEliminar.TabIndex = 44;
@@ -516,7 +525,7 @@
             // 
             btnLimpiarEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLimpiarEliminar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnLimpiarEliminar.Location = new Point(997, 29);
+            btnLimpiarEliminar.Location = new Point(993, 29);
             btnLimpiarEliminar.Name = "btnLimpiarEliminar";
             btnLimpiarEliminar.Size = new Size(77, 35);
             btnLimpiarEliminar.TabIndex = 40;
@@ -539,7 +548,7 @@
             // 
             btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnEliminar.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnEliminar.Location = new Point(1089, 29);
+            btnEliminar.Location = new Point(1085, 29);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(77, 35);
             btnEliminar.TabIndex = 39;
@@ -573,7 +582,7 @@
             // 
             txtPrecioeliminar.Anchor = AnchorStyles.Left;
             txtPrecioeliminar.Enabled = false;
-            txtPrecioeliminar.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtPrecioeliminar.Font = new Font("Times New Roman", 12F);
             txtPrecioeliminar.Location = new Point(266, 37);
             txtPrecioeliminar.Name = "txtPrecioeliminar";
             txtPrecioeliminar.Size = new Size(123, 26);
@@ -583,7 +592,7 @@
             // 
             txtNombreEliminar.Anchor = AnchorStyles.Left;
             txtNombreEliminar.Enabled = false;
-            txtNombreEliminar.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtNombreEliminar.Font = new Font("Times New Roman", 12F);
             txtNombreEliminar.Location = new Point(19, 37);
             txtNombreEliminar.Name = "txtNombreEliminar";
             txtNombreEliminar.Size = new Size(222, 26);
@@ -592,7 +601,7 @@
             // txtBuscarEliminar
             // 
             txtBuscarEliminar.Anchor = AnchorStyles.Left;
-            txtBuscarEliminar.Font = new Font("Arial", 12F, FontStyle.Bold);
+            txtBuscarEliminar.Font = new Font("Times New Roman", 12F);
             txtBuscarEliminar.Location = new Point(485, 33);
             txtBuscarEliminar.MaxLength = 10;
             txtBuscarEliminar.Name = "txtBuscarEliminar";

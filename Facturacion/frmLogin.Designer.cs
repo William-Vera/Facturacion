@@ -46,6 +46,7 @@
             textBox1.Size = new Size(192, 29);
             textBox1.TabIndex = 0;
             textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.KeyPress += textBox1_KeyPress;
             // 
             // textBox2
             // 
@@ -57,6 +58,7 @@
             textBox2.Size = new Size(192, 29);
             textBox2.TabIndex = 1;
             textBox2.TextAlign = HorizontalAlignment.Center;
+            textBox2.KeyPress += textBox2_KeyPress;
             // 
             // label1
             // 
