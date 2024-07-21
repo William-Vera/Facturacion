@@ -19,6 +19,11 @@ namespace Facturacion
 
         private void button1_Click(object sender, EventArgs e)
         {
+            verificarusuario();
+        }
+
+        private void verificarusuario()
+        {
             csFactura emple = new csFactura();
             csVentas log = new csVentas();
             string usuario = textBox1.Text;
@@ -57,6 +62,24 @@ namespace Facturacion
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                textBox2.Focus();
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                verificarusuario();
+            }
         }
     }
 }

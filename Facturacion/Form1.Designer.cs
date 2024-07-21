@@ -97,11 +97,13 @@
             // 
             textBox1.BackColor = Color.SteelBlue;
             textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Dock = DockStyle.Fill;
             textBox1.Font = new Font("Times New Roman", 8.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(0, 0);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(183, 80);
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(200, 80);
             textBox1.TabIndex = 0;
             textBox1.Text = "\r\nGCS-Grupo X\r\n2024-2025";
             textBox1.TextAlign = HorizontalAlignment.Center;

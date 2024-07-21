@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -28,9 +29,18 @@ namespace Facturacion
 
         }
 
+        private TabPage hiddenTabPage;
+        private void HideTab(TabControl tabControl, TabPage tabPage)
+        {
+            if (tabControl.TabPages.Contains(tabPage))
+            {
+                hiddenTabPage = tabPage;
+                tabControl.TabPages.Remove(tabPage);
+            }
+        }
         private void btnEditarPass_Click(object sender, EventArgs e)
         {
-            if (dgvEditar.SelectedRows.Count > 0)
+            if (dgvEditar.CurrentCell != null)
             {
                 using (frmEditarContrasenia frmeditcontre = new frmEditarContrasenia())
                 {
@@ -45,24 +55,35 @@ namespace Facturacion
         {
             csEmpleado empleado = new csEmpleado();
             empleado.CargarRolesEnComboBox(comboBox5, "spListarRoles");
+            HideTab(tabControl1, tabPage3);
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             csEmpleado empleado = new csEmpleado();
-            int estado = 1;
-            if (comboBox4.Text == "Activado")
-                estado = 1;
-            else
-                estado = 0;
+            int estado = (comboBox4.Text == "Activado") ? 1 : 0;
 
-            if (txtcedula.Text != "" && txtNombres.Text != "" && txtApellidos.Text != "" && txtUser.Text != "" && txtContrasenia.Text != "" && comboBox4.Text != "")
+            if (string.IsNullOrWhiteSpace(txtcedula.Text) || string.IsNullOrWhiteSpace(txtNombres.Text) ||
+                string.IsNullOrWhiteSpace(txtApellidos.Text) || string.IsNullOrWhiteSpace(txtUser.Text) ||
+                string.IsNullOrWhiteSpace(txtContrasenia.Text) || string.IsNullOrWhiteSpace(comboBox4.Text))
+            {
+                MessageBox.Show("RELLENE TODOS LOS CAMPOS NECESARIOS POR FAVOR :(");
+                return;
+            }
+
+            try
             {
                 empleado.ingresar_empleado(txtNombres.Text, txtApellidos.Text, txtcedula.Text, (int)comboBox5.SelectedValue, txtUser.Text, txtContrasenia.Text, estado);
-                MessageBox.Show("Se ha agregadocon exito a: " + txtNombres.Text + " " + txtApellidos.Text);
+                MessageBox.Show("Se ha agregado con éxito a: " + txtNombres.Text + " " + txtApellidos.Text);
             }
-            else
-                MessageBox.Show("RELLENE TODOS LOS CAMPOS NECESARIOS POR FAVOR :(");
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error al agregar empleado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCargarDtg_Click(object sender, EventArgs e)
@@ -132,20 +153,40 @@ namespace Facturacion
         private void btnEditar_Click(object sender, EventArgs e)
         {
             csEmpleado empleado = new csEmpleado();
-            int estado = 1;
-            if (cbxEstadoEditar.Text == "Activado")
-                estado = 1;
-            else
-                estado = 0;
+            int estado = cbxEstadoEditar.Text == "Activado" ? 1 : 0;
 
-            if (txtCedulaEditar.Text != "" && txtNombreEditar.Text != "" && txtApellidoEditar.Text != "" && txtUserEditar.Text != "" && cbxEstadoEditar.Text != "")
+            if (!string.IsNullOrWhiteSpace(txtCedulaEditar.Text) &&
+                !string.IsNullOrWhiteSpace(txtNombreEditar.Text) &&
+                !string.IsNullOrWhiteSpace(txtApellidoEditar.Text) &&
+                !string.IsNullOrWhiteSpace(txtUserEditar.Text) &&
+                !string.IsNullOrWhiteSpace(cbxEstadoEditar.Text))
             {
-                empleado.editar_empleado(CsSesionActiva.EmpleadoEditarID,txtNombreEditar.Text, txtApellidoEditar.Text, txtCedulaEditar.Text, (int)cbxRolEditar.SelectedValue, txtUserEditar.Text, estado);
-                MessageBox.Show("Se ha editado con exito a: " + txtNombreEditar.Text + " " + txtApellidoEditar.Text);
-                dgvEditar.DataSource = null;
+                try
+                {
+                    empleado.editar_empleado(CsSesionActiva.EmpleadoEditarID,
+                                             txtNombreEditar.Text,
+                                             txtApellidoEditar.Text,
+                                             txtCedulaEditar.Text,
+                                             (int)cbxRolEditar.SelectedValue,
+                                             txtUserEditar.Text,
+                                             estado);
+                    MessageBox.Show("Se ha editado con éxito a: " + txtNombreEditar.Text + " " + txtApellidoEditar.Text);
+                    dgvEditar.DataSource = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al editar empleado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
+            {
                 MessageBox.Show("RELLENE TODOS LOS CAMPOS NECESARIOS POR FAVOR :(");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
