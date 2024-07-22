@@ -18,8 +18,8 @@ namespace Facturacion
     {
         public SqlConnection con;
         public SqlCommand cmd;
-        public string usuario = "vmolina";
-        public string contra = "finnjake";
+        public string usuario = "sa";
+        public string contra = "12345";
         public string bd = "gcsfactura", server = ".";
         public virtual void abrirconexcion()
         {
@@ -533,26 +533,13 @@ namespace Facturacion
             cmd = new SqlCommand(sp, con);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.Add("@EmpleadoID", SqlDbType.Int);
-            cmd.Parameters["@EmpleadoID"].Value = empleadoID;
-
-            cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar);
-            cmd.Parameters["@Nombre"].Value = Nombre;
-
-            cmd.Parameters.Add("@Apellido", SqlDbType.NVarChar);
-            cmd.Parameters["@Apellido"].Value = Apellido;
-
-            cmd.Parameters.Add("@Cedula", SqlDbType.NVarChar);
-            cmd.Parameters["@Cedula"].Value = Cedula;
-
-            cmd.Parameters.Add("@Usuario", SqlDbType.NVarChar);
-            cmd.Parameters["@Usuario"].Value = Usuario;
-
-            cmd.Parameters.Add("@RolID", SqlDbType.Int);
-            cmd.Parameters["@RolID"].Value = RolID;
-
-            cmd.Parameters.Add("@Estado", SqlDbType.Bit);
-            cmd.Parameters["@Estado"].Value = Estado;
+            cmd.Parameters.Add("@EmpleadoID", SqlDbType.Int).Value = empleadoID;
+            cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar, 50).Value = Nombre;
+            cmd.Parameters.Add("@Apellido", SqlDbType.NVarChar, 50).Value = Apellido;
+            cmd.Parameters.Add("@Cedula", SqlDbType.NVarChar, 10).Value = Cedula;
+            cmd.Parameters.Add("@Usuario", SqlDbType.NVarChar, 25).Value = Usuario;
+            cmd.Parameters.Add("@RolID", SqlDbType.Int).Value = RolID;
+            cmd.Parameters.Add("@Estado", SqlDbType.Bit).Value = Estado;
 
             cmd.ExecuteNonQuery();
             cerrarconexion();
