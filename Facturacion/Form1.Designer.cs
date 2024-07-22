@@ -40,12 +40,20 @@
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
             panel_central = new Panel();
+            panel2 = new Panel();
+            textBox3 = new TextBox();
+            button1 = new Button();
+            textBox4 = new TextBox();
+            label2 = new Label();
+            label1 = new Label();
             panel_inferior = new Panel();
             textBox2 = new TextBox();
             panel_lateral.SuspendLayout();
             panel_iz_inf.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel_central.SuspendLayout();
+            panel2.SuspendLayout();
             panel_inferior.SuspendLayout();
             SuspendLayout();
             // 
@@ -82,6 +90,7 @@
             btnEmpleados.Text = "Empleados";
             btnEmpleados.TextAlign = ContentAlignment.MiddleLeft;
             btnEmpleados.UseVisualStyleBackColor = false;
+            btnEmpleados.Visible = false;
             btnEmpleados.Click += btnEmpleados_Click;
             // 
             // panel_iz_inf
@@ -202,12 +211,83 @@
             // panel_central
             // 
             panel_central.AutoScroll = true;
-            panel_central.BackgroundImageLayout = ImageLayout.None;
+            panel_central.BackgroundImage = Properties.Resources.Como_cambiar_la_imagen_de_fondo_del_inicio_de_sesion_en_tu_Mac_professor_falken_com_;
+            panel_central.BackgroundImageLayout = ImageLayout.Stretch;
+            panel_central.Controls.Add(panel2);
             panel_central.Dock = DockStyle.Fill;
             panel_central.Location = new Point(200, 0);
             panel_central.Name = "panel_central";
             panel_central.Size = new Size(794, 591);
             panel_central.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            panel2.Anchor = AnchorStyles.None;
+            panel2.Controls.Add(textBox3);
+            panel2.Controls.Add(button1);
+            panel2.Controls.Add(textBox4);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(label1);
+            panel2.Location = new Point(251, 80);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(305, 337);
+            panel2.TabIndex = 6;
+            // 
+            // textBox3
+            // 
+            textBox3.Font = new Font("Britannic Bold", 14.25F);
+            textBox3.Location = new Point(54, 93);
+            textBox3.Multiline = true;
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(192, 29);
+            textBox3.TabIndex = 0;
+            textBox3.TextAlign = HorizontalAlignment.Center;
+            textBox3.KeyPress += textBox3_KeyPress;
+            // 
+            // button1
+            // 
+            button1.Font = new Font("Britannic Bold", 16F);
+            button1.Location = new Point(54, 218);
+            button1.Name = "button1";
+            button1.Size = new Size(192, 41);
+            button1.TabIndex = 4;
+            button1.Text = "INICIAR SESION";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // textBox4
+            // 
+            textBox4.Font = new Font("Britannic Bold", 14.25F);
+            textBox4.Location = new Point(54, 165);
+            textBox4.Multiline = true;
+            textBox4.Name = "textBox4";
+            textBox4.PasswordChar = '*';
+            textBox4.Size = new Size(192, 29);
+            textBox4.TabIndex = 1;
+            textBox4.TextAlign = HorizontalAlignment.Center;
+            textBox4.KeyPress += textBox4_KeyPress;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Britannic Bold", 16F);
+            label2.Location = new Point(83, 137);
+            label2.Name = "label2";
+            label2.Size = new Size(138, 25);
+            label2.TabIndex = 3;
+            label2.Text = "CONTRASEÑA";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Britannic Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(105, 65);
+            label1.Name = "label1";
+            label1.Size = new Size(93, 23);
+            label1.TabIndex = 2;
+            label1.Text = "USUARIO";
             // 
             // panel_inferior
             // 
@@ -253,6 +333,9 @@
             panel_iz_inf.PerformLayout();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel_central.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel_inferior.ResumeLayout(false);
             panel_inferior.PerformLayout();
             ResumeLayout(false);
@@ -273,5 +356,11 @@
         private TextBox textBox1;
         private TextBox textBox2;
         private Button btnEmpleados;
+        private Panel panel2;
+        private TextBox textBox3;
+        private Button button1;
+        private TextBox textBox4;
+        private Label label2;
+        private Label label1;
     }
 }

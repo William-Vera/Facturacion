@@ -59,6 +59,8 @@ namespace Facturacion
             txtNombreEliminar.Text = string.Empty;
             txtApellidoEliminar.Text = string.Empty;
             txtBuscarEliminar.Text = string.Empty;
+            btnEditar.Enabled = false;
+            btnEliminar.Enabled = false;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -152,9 +154,12 @@ namespace Facturacion
                     txtCedulaEditar.Text = Cedula;
                     txtApellidosEditar.Text = Apellidos;
                     id_cliente = int.Parse(idcell);
+                    btnEditar.Enabled = true;
                 }
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void txtBuscarEditar_TextChanged(object sender, EventArgs e)
@@ -209,6 +214,7 @@ namespace Facturacion
                     txtCedulaEliminar.Text = Cedula;
                     txtApellidoEliminar.Text = Apellidos;
                     id_cliente = int.Parse(idcell);
+                    btnEliminar.Enabled = true;
                 }
             }
             catch (Exception ex) { }

@@ -58,7 +58,6 @@
             panel8 = new Panel();
             dgvEditar = new DataGridView();
             panel3 = new Panel();
-            btnCargarDtg = new Button();
             comboBox2 = new ComboBox();
             btnBuscarEditar = new Button();
             txtBuscarEditar = new TextBox();
@@ -132,6 +131,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(1200, 603);
             tabControl1.TabIndex = 1;
+            tabControl1.Click += tabControl1_Click;
             // 
             // tabPage1
             // 
@@ -162,6 +162,7 @@
             // 
             dgvAgregar.AllowUserToAddRows = false;
             dgvAgregar.AllowUserToDeleteRows = false;
+            dgvAgregar.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvAgregar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAgregar.Dock = DockStyle.Fill;
             dgvAgregar.Location = new Point(0, 0);
@@ -187,7 +188,7 @@
             // 
             // btnAgregar
             // 
-            btnAgregar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnAgregar.Anchor = AnchorStyles.Right;
             btnAgregar.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAgregar.Location = new Point(1003, 30);
             btnAgregar.Name = "btnAgregar";
@@ -199,10 +200,10 @@
             // 
             // comboBox1
             // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox1.Anchor = AnchorStyles.Left;
             comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
+            comboBox1.Items.AddRange(new object[] { "Cedula", "Nombre", "Apellido", "Usuario", "Rol", "Estado" });
             comboBox1.Location = new Point(358, 29);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(226, 27);
@@ -210,7 +211,7 @@
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button1.Anchor = AnchorStyles.Right;
             button1.Font = new Font("Arial", 12F, FontStyle.Bold);
             button1.Location = new Point(635, 30);
             button1.Name = "button1";
@@ -222,7 +223,7 @@
             // 
             // textBox1
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBox1.Anchor = AnchorStyles.Left;
             textBox1.Font = new Font("Times New Roman", 12F);
             textBox1.Location = new Point(92, 28);
             textBox1.Margin = new Padding(3, 3, 30, 3);
@@ -231,10 +232,11 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(238, 27);
             textBox1.TabIndex = 30;
+            textBox1.KeyPress += textBox1_KeyPress;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 12F, FontStyle.Bold);
             label1.Location = new Point(18, 32);
@@ -245,7 +247,7 @@
             // 
             // button2
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button2.Anchor = AnchorStyles.Right;
             button2.Font = new Font("Arial", 12F, FontStyle.Bold);
             button2.Location = new Point(820, 30);
             button2.Name = "button2";
@@ -253,6 +255,7 @@
             button2.TabIndex = 29;
             button2.Text = "Limpiar";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // panel2
             // 
@@ -426,6 +429,7 @@
             txtcedula.Name = "txtcedula";
             txtcedula.Size = new Size(125, 26);
             txtcedula.TabIndex = 23;
+            txtcedula.KeyPress += txtcedula_KeyPress;
             // 
             // tabPage2
             // 
@@ -465,12 +469,11 @@
             dgvEditar.Size = new Size(1178, 379);
             dgvEditar.TabIndex = 0;
             dgvEditar.CellClick += dgvEditar_CellClick;
-            dgvEditar.CellContentClick += dgvEditar_CellContentClick;
+            dgvEditar.CellContentClick += dgvEditar_CellContentClick_1;
             // 
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.Fixed3D;
-            panel3.Controls.Add(btnCargarDtg);
             panel3.Controls.Add(comboBox2);
             panel3.Controls.Add(btnBuscarEditar);
             panel3.Controls.Add(txtBuscarEditar);
@@ -481,18 +484,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1182, 89);
             panel3.TabIndex = 37;
-            // 
-            // btnCargarDtg
-            // 
-            btnCargarDtg.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCargarDtg.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnCargarDtg.Location = new Point(1043, 30);
-            btnCargarDtg.Name = "btnCargarDtg";
-            btnCargarDtg.Size = new Size(125, 35);
-            btnCargarDtg.TabIndex = 35;
-            btnCargarDtg.Text = "Cargar";
-            btnCargarDtg.UseVisualStyleBackColor = true;
-            btnCargarDtg.Click += btnCargarDtg_Click;
             // 
             // comboBox2
             // 
@@ -509,12 +500,13 @@
             // 
             btnBuscarEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscarEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnBuscarEditar.Location = new Point(669, 30);
+            btnBuscarEditar.Location = new Point(709, 30);
             btnBuscarEditar.Name = "btnBuscarEditar";
             btnBuscarEditar.Size = new Size(171, 35);
             btnBuscarEditar.TabIndex = 33;
             btnBuscarEditar.Text = "Buscar";
             btnBuscarEditar.UseVisualStyleBackColor = true;
+            btnBuscarEditar.Click += btnBuscarEditar_Click;
             // 
             // txtBuscarEditar
             // 
@@ -527,6 +519,7 @@
             txtBuscarEditar.Name = "txtBuscarEditar";
             txtBuscarEditar.Size = new Size(242, 27);
             txtBuscarEditar.TabIndex = 30;
+            txtBuscarEditar.KeyPress += txtBuscarEditar_KeyPress;
             // 
             // label5
             // 
@@ -543,12 +536,13 @@
             // 
             btnLimpiarEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnLimpiarEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
-            btnLimpiarEditar.Location = new Point(861, 30);
+            btnLimpiarEditar.Location = new Point(938, 30);
             btnLimpiarEditar.Name = "btnLimpiarEditar";
             btnLimpiarEditar.Size = new Size(171, 35);
             btnLimpiarEditar.TabIndex = 29;
             btnLimpiarEditar.Text = "Limpiar";
             btnLimpiarEditar.UseVisualStyleBackColor = true;
+            btnLimpiarEditar.Click += btnLimpiarEditar_Click;
             // 
             // panel4
             // 
@@ -723,6 +717,7 @@
             txtCedulaEditar.Name = "txtCedulaEditar";
             txtCedulaEditar.Size = new Size(125, 26);
             txtCedulaEditar.TabIndex = 23;
+            txtCedulaEditar.KeyPress += txtCedulaEditar_KeyPress;
             // 
             // tabPage3
             // 
@@ -1106,6 +1101,5 @@
         private DataGridView dgvAgregar;
         private Label label22;
         private TextBox txtContrasenia;
-        private Button btnCargarDtg;
     }
 }

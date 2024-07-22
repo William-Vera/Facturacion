@@ -214,5 +214,10 @@ namespace Facturacion
         {
             limpiar();
         }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
