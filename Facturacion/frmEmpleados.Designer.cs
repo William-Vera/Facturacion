@@ -490,7 +490,7 @@
             comboBox2.Anchor = AnchorStyles.Right;
             comboBox2.Font = new Font("Times New Roman", 12F);
             comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
+            comboBox2.Items.AddRange(new object[] { "Cedula", "Nombre", "Apellido", "Usuario", "Rol", "Estado" });
             comboBox2.Location = new Point(407, 30);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(230, 27);
