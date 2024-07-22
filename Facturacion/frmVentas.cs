@@ -96,6 +96,21 @@ namespace Facturacion
         {
             LlenarComboBox("spListarClientes");
             LlenarComboBox1("spListarProductos");
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.Add("Cliente", "CLIENTE");
+            dataGridView1.Columns.Add("Producto", "PRODUCTO");
+            dataGridView1.Columns.Add("Cantidad", "CANTIDAD");
+            dataGridView1.Columns.Add("Precio", "PRECIO");
+            dataGridView1.Columns.Add("Subtotal", "SUBTOTAL");
+            dataGridView1.Columns.Add("IVA", "IVA");
+            dataGridView1.Columns.Add("Total", "TOTAL");
+
+            // Añadir columna para IdProducto, pero hacerla invisible
+            var column = new DataGridViewTextBoxColumn();
+            column.Name = "IdProducto";
+            column.Visible = false;
+            dataGridView1.Columns.Add(column);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -108,33 +123,64 @@ namespace Facturacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != null && textBox1.Text != "" && comboBox1.Text!="" && comboBox2.Text != "")
+            if (textBox1.Text != null && textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
             {
                 double valor_iva = 0.15;
                 int cantidad = int.Parse(textBox1.Text);
-                int idprod = int.Parse(objvent.retornar_idproducto(comboBox2.Text, "spRetornaIDproducto"));
+                int idprod = int.Parse(comboBox2.SelectedValue.ToString());
                 double precio = double.Parse(objvent.retornar_precio(idprod, "spretornaprecio"));
                 double subtotal = precio * cantidad;
                 double iva = subtotal * valor_iva;
                 double total = subtotal + subtotal * valor_iva;
 
-                detallesVenta.Add(new DetalleVenta
-                {
-                    NombreProducto = comboBox2.Text,
-                    IdProducto = idprod,
-                    Cantidad = cantidad,
-                    PrecioUnitario = (decimal)precio,
-                    Subtotal = (decimal)subtotal,
-                    IVA = (decimal)iva,
-                    Total = (decimal)total
-                });
+                // Buscar el producto en la lista
+                var detalleExistente = detallesVenta.FirstOrDefault(d => d.IdProducto == idprod);
 
-                dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, (decimal)precio, (decimal)subtotal, (decimal)iva, (decimal)total);
+                if (detalleExistente != null)
+                {
+                    // Actualizar los valores si el producto ya existe
+                    detalleExistente.Cantidad += cantidad;
+                    detalleExistente.Subtotal = detalleExistente.PrecioUnitario * detalleExistente.Cantidad;
+                    detalleExistente.IVA = detalleExistente.Subtotal * (decimal)valor_iva;
+                    detalleExistente.Total = detalleExistente.Subtotal + detalleExistente.IVA;
+
+                    // Actualizar el DataGridView
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        if ((int)row.Cells["IdProducto"].Value == idprod)
+                        {
+                            row.Cells["Cantidad"].Value = detalleExistente.Cantidad;
+                            row.Cells["Subtotal"].Value = detalleExistente.Subtotal;
+                            row.Cells["IVA"].Value = detalleExistente.IVA;
+                            row.Cells["Total"].Value = detalleExistente.Total;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // Agregar el producto si no existe
+                    detallesVenta.Add(new DetalleVenta
+                    {
+                        NombreProducto = comboBox2.Text,
+                        IdProducto = idprod,
+                        Cantidad = cantidad,
+                        PrecioUnitario = (decimal)precio,
+                        Subtotal = (decimal)subtotal,
+                        IVA = (decimal)iva,
+                        Total = (decimal)total
+                    });
+
+                    dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, (decimal)precio, (decimal)subtotal, (decimal)iva, (decimal)total, idprod);
+                }
+
                 comboBox1.Enabled = false;
                 dateTimePicker1.Enabled = false;
             }
             else
+            {
                 MessageBox.Show("Recuerde que debe llenar los campos necesarios para poder añadir al carrito");
+            }
         }
 
         private void InsertarDetalleVentaEnBD(int idCliente, DateTime fecha)
