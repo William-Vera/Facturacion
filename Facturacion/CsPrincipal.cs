@@ -18,8 +18,8 @@ namespace Facturacion
     {
         public SqlConnection con;
         public SqlCommand cmd;
-        public string usuario = "vmolina";
-        public string contra = "finnjake";
+        public string usuario = "sa";
+        public string contra = "12345";
         public string bd = "gcsfactura", server = ".";
         public virtual void abrirconexcion()
         {
