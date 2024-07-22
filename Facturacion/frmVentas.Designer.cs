@@ -200,6 +200,7 @@
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(125, 27);
             comboBox2.TabIndex = 5;
+            comboBox2.DropDown += comboBox2_DropDown;
             comboBox2.KeyDown += comboBox2_KeyDown;
             comboBox2.Leave += comboBox2_Leave;
             // 

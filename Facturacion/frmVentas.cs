@@ -204,8 +204,6 @@ namespace Facturacion
             {
                 totalFactura += detalle.Total;
             }
-
-            // Llamar al procedimiento almacenado para insertar la factura y sus detalles
             InsertarVenta(idCliente, fecha, totalFactura);
         }
 
@@ -496,6 +494,10 @@ namespace Facturacion
         private void comboBox1_DropDown(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = -1;
+        }
+
+        private void comboBox2_DropDown(object sender, EventArgs e)
+        {
             comboBox2.SelectedIndex = -1;
         }
     }
