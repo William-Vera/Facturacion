@@ -305,6 +305,46 @@ namespace Facturacion
             }
         }
 
+        public void cargarvalorescombo(string searchText, System.Windows.Forms.ComboBox cbx)
+        {
+            string sp = "spObtenerClientes";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@SearchText", searchText));
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cbx.DisplayMember = "Nombres";
+            cbx.ValueMember = "IDCLIENTE";
+            cbx.DataSource = dt;
+
+            cerrarconexion();
+        }
+
+        public void cargarproductos(string searchText, System.Windows.Forms.ComboBox cbx)
+        {
+            string sp = "spObtenerProductos";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@SearchText", searchText));
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cbx.DisplayMember = "Nombre";
+            cbx.ValueMember = "IDPRODUCTO";
+            cbx.DataSource = dt;
+
+            cerrarconexion();
+
+            cerrarconexion();
+        }
+
         public class DetalleVenta
         {
             public string NombreProducto { get; set; }

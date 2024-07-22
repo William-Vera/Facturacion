@@ -182,24 +182,26 @@
             // 
             // comboBox1
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(22, 46);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(170, 27);
             comboBox1.TabIndex = 4;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.DropDown += comboBox1_DropDown;
+            comboBox1.KeyDown += comboBox1_KeyDown;
+            comboBox1.Leave += comboBox1_Leave;
             // 
             // comboBox2
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.Font = new Font("Times New Roman", 12F);
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(205, 46);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(125, 27);
             comboBox2.TabIndex = 5;
+            comboBox2.KeyDown += comboBox2_KeyDown;
+            comboBox2.Leave += comboBox2_Leave;
             // 
             // dateTimePicker1
             // 
@@ -285,7 +287,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1116, 103);
             panel1.TabIndex = 13;
-            panel1.Paint += panel1_Paint;
             // 
             // panel2
             // 

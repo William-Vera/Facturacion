@@ -94,8 +94,8 @@ namespace Facturacion
 
         private void frmVentas_Load(object sender, EventArgs e)
         {
-            LlenarComboBox("spListarClientes");
-            LlenarComboBox1("spListarProductos");
+            //LlenarComboBox("spListarClientes");
+            //LlenarComboBox1("spListarProductos");
             dataGridView1.Columns.Clear();
 
             dataGridView1.Columns.Add("Cliente", "CLIENTE");
@@ -359,14 +359,16 @@ namespace Facturacion
             comboBox2.Text = string.Empty;
             textBox1.Text = string.Empty;
             dateTimePicker1.Text = string.Empty;
+            comboBox1.DataSource = null;
+            comboBox2.DataSource = null;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             try
             {
-                borrarrows();  
-                detallesVenta.Clear(); 
+                borrarrows();
+                detallesVenta.Clear();
                 limpiar();
                 MessageBox.Show("Venta cancelada y datos limpiados correctamente.");
                 comboBox1.Enabled = true;
@@ -404,9 +406,97 @@ namespace Facturacion
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    objvent.cargarvalorescombo(comboBox1.Text, comboBox1);
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isValidItem = false;
+                foreach (var item in comboBox1.Items)
+                {
+                    if (comboBox1.Text == ((DataRowView)item)["Nombres"].ToString())
+                    {
+                        isValidItem = true;
+                        break;
+                    }
+                }
+
+                if (!isValidItem)
+                {
+                    comboBox1.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    objvent.cargarproductos(comboBox2.Text, comboBox2);
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox2_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isValidItem = false;
+                foreach (var item in comboBox2.Items)
+                {
+                    if (comboBox2.Text == ((DataRowView)item)["Nombre"].ToString())
+                    {
+                        isValidItem = true;
+                        break;
+                    }
+                }
+
+                if (!isValidItem)
+                {
+                    comboBox2.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox1_DropDown(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
         }
     }
 }
