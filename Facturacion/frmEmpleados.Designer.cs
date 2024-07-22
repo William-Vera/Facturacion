@@ -753,6 +753,7 @@
             // comboBox3
             // 
             comboBox3.Anchor = AnchorStyles.Right;
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.Font = new Font("Times New Roman", 12F);
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
@@ -856,6 +857,7 @@
             // cbxEstadoEliminar
             // 
             cbxEstadoEliminar.Anchor = AnchorStyles.Left;
+            cbxEstadoEliminar.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxEstadoEliminar.Enabled = false;
             cbxEstadoEliminar.Font = new Font("Times New Roman", 12F);
             cbxEstadoEliminar.FormattingEnabled = true;
@@ -878,6 +880,7 @@
             // cbxRolEliminar
             // 
             cbxRolEliminar.Anchor = AnchorStyles.Left;
+            cbxRolEliminar.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxRolEliminar.Enabled = false;
             cbxRolEliminar.Font = new Font("Times New Roman", 12F);
             cbxRolEliminar.FormattingEnabled = true;
