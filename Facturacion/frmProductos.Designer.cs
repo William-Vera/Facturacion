@@ -162,6 +162,7 @@
             // comboBox1
             // 
             comboBox1.Anchor = AnchorStyles.Right;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "NOMBRE", "PRECIO_UNITARIO" });

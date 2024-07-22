@@ -172,6 +172,7 @@
             // comboBox1
             // 
             comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
@@ -365,6 +366,7 @@
             // comboBox2
             // 
             comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.Font = new Font("Times New Roman", 12F);
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
@@ -560,6 +562,7 @@
             // comboBox3
             // 
             comboBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.Font = new Font("Times New Roman", 12F);
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos" });
