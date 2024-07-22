@@ -356,6 +356,7 @@
             // btnEditar
             // 
             btnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditar.Enabled = false;
             btnEditar.Font = new Font("Arial", 12F, FontStyle.Bold);
             btnEditar.Location = new Point(1085, 29);
             btnEditar.Name = "btnEditar";
@@ -547,6 +548,7 @@
             // btnEliminar
             // 
             btnEliminar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEliminar.Enabled = false;
             btnEliminar.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnEliminar.Location = new Point(1085, 29);
             btnEliminar.Name = "btnEliminar";

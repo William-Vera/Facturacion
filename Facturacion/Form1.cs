@@ -19,9 +19,12 @@ namespace Facturacion
             //else
             //    btnEmpleados.Enabled = true;
             //desactivarbotones();
-            frmLogin frmLog = new frmLogin();
-            frmLog.MdiParent = this;
-            abrifrm(frmLog);
+            //frmLogin frmLog = new frmLogin();
+            //frmLog.MdiParent = this;
+            //abrifrm(frmLog);
+            desactivarbotones();
+            panel2.BackColor = Color.FromArgb(100, 0, 0, 0);
+            textBox3.Focus();
         }
         public void desactivaremp()
         {
@@ -34,7 +37,8 @@ namespace Facturacion
             btn_clientes.Enabled = true;
             btn_productos.Enabled = true;
             btn_ventas.Enabled = true;
-            
+            btm_facturas.Enabled = true;
+
         }
 
         public void desactivarbotones()
@@ -43,7 +47,7 @@ namespace Facturacion
             btn_clientes.Enabled = false;
             btn_productos.Enabled = false;
             btn_ventas.Enabled = false;
-
+            btm_facturas.Enabled = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -155,6 +159,61 @@ namespace Facturacion
             frmemp.MdiParent = this;
             abrifrm(frmemp);
             ocultar();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            verificarusuario();
+        }
+
+        private void verificarusuario()
+        {
+            csFactura emple = new csFactura();
+            csVentas log = new csVentas();
+            string usuario = textBox3.Text;
+            string contrasena = textBox4.Text;
+
+            // Encriptar la contraseña
+            byte[] hashContrasena = emple.EncriptarContrasena(contrasena);
+
+            // Validar el usuario
+            bool esValido = log.ValidarUsuario(usuario, hashContrasena);
+
+            if (esValido)
+            {
+                MessageBox.Show("Inicio de sesión exitoso.");
+                //Form1 frmPrincipal = new Form1();
+                //frmPrincipal.desactivaremp();
+                //frmPrincipal.Refresh();
+                //this.Hide();
+                habilitarbotones();
+                panel2.Visible = false;
+                panel_central.BackgroundImage = null;
+                if (int.Parse(CsSesionActiva.Rol) == 1)
+                    btnEmpleados.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Usuario o contraseña incorrectos, Puede que su usuario se encuentre desabilitado.");
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                textBox4.Focus();
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                verificarusuario();
+            }
         }
     }
 }
