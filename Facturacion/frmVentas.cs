@@ -106,11 +106,24 @@ namespace Facturacion
             dataGridView1.Columns.Add("IVA", "IVA");
             dataGridView1.Columns.Add("Total", "TOTAL");
 
-            // Añadir columna para IdProducto, pero hacerla invisible
             var column = new DataGridViewTextBoxColumn();
             column.Name = "IdProducto";
             column.Visible = false;
             dataGridView1.Columns.Add(column);
+
+            DataGridViewImageColumn imgColumn = new DataGridViewImageColumn();
+            imgColumn.Name = "Eliminar";
+            imgColumn.HeaderText = "Eliminar";
+            imgColumn.Image = Properties.Resources.icono_eliminar;
+            imgColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridView1.Columns.Add(imgColumn);
+
+            //DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
+            //btnColumn.Name = "Eliminar";
+            //btnColumn.HeaderText = "ELIMINAR";
+            //btnColumn.Text = "X";
+            //btnColumn.UseColumnTextForButtonValue = true;          
+            //dataGridView1.Columns.Add(btnColumn);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -352,9 +365,9 @@ namespace Facturacion
         {
             try
             {
-                borrarrows();  // Elimina las filas del DataGridView
-                detallesVenta.Clear();  // Vacía la lista de detalles de la venta
-                limpiar();  // Limpia los controles del formulario
+                borrarrows();  
+                detallesVenta.Clear(); 
+                limpiar();
                 MessageBox.Show("Venta cancelada y datos limpiados correctamente.");
                 comboBox1.Enabled = true;
                 dateTimePicker1.Enabled = true;
@@ -369,7 +382,7 @@ namespace Facturacion
         {
             try
             {
-                dataGridView1.Rows.Clear();  // Elimina todas las filas del DataGridView
+                dataGridView1.Rows.Clear();
             }
             catch (Exception ex)
             {
@@ -379,7 +392,16 @@ namespace Facturacion
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.ColumnIndex == dataGridView1.Columns["Eliminar"].Index && e.RowIndex >= 0)
+            {
+                int idProducto = (int)dataGridView1.Rows[e.RowIndex].Cells["IdProducto"].Value;
+                var detalle = detallesVenta.FirstOrDefault(d => d.IdProducto == idProducto);
+                if (detalle != null)
+                {
+                    detallesVenta.Remove(detalle);
+                }
+                dataGridView1.Rows.RemoveAt(e.RowIndex);
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

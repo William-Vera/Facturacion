@@ -40,6 +40,7 @@
             clSubtotal = new DataGridViewTextBoxColumn();
             cliva = new DataGridViewTextBoxColumn();
             clTotal = new DataGridViewTextBoxColumn();
+            Eliminar = new DataGridViewTextBoxColumn();
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
@@ -74,7 +75,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clCliente, clProducto, clCantidad, clPrecio, clSubtotal, cliva, clTotal });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clCliente, clProducto, clCantidad, clPrecio, clSubtotal, cliva, clTotal, Eliminar });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -133,6 +134,12 @@
             clTotal.HeaderText = "TOTAL";
             clTotal.Name = "clTotal";
             clTotal.ReadOnly = true;
+            // 
+            // Eliminar
+            // 
+            Eliminar.HeaderText = "ELIMINAR";
+            Eliminar.Name = "Eliminar";
+            Eliminar.ReadOnly = true;
             // 
             // button1
             // 
@@ -333,5 +340,6 @@
         private ImageList imageList1;
         private Panel panel1;
         private Panel panel2;
+        private DataGridViewTextBoxColumn Eliminar;
     }
 }
