@@ -50,6 +50,8 @@ namespace Facturacion
             txtPrecioeliminar.Text = string.Empty;
             txtNombreEliminar.Text = string.Empty;
             txtBuscarEliminar.Text = string.Empty;
+            btnEditar.Enabled = false;
+            btnEliminar.Enabled = false;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -96,10 +98,18 @@ namespace Facturacion
         {
             try
             {
-                objpro.ingresar_producto(txtNombreProducto.Text, decimal.Parse(txtPrecioProducto.Text, CultureInfo.InvariantCulture)); ;
-                //dgvAggProductos = objpro.listar_productos(dgvAggProductos);
-                limpiar();
-                borrarrows(dgvAggProductos);
+                if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtPrecioProducto.Text)) {
+                    MessageBox.Show("Asegurate de llenar todos los campos");
+                }
+                else
+                {
+                    objpro.ingresar_producto(txtNombreProducto.Text, decimal.Parse(txtPrecioProducto.Text, CultureInfo.InvariantCulture)); ;
+                    //dgvAggProductos = objpro.listar_productos(dgvAggProductos);
+                    MessageBox.Show("Se ha agregado con exito el producto: "+txtNombreProducto.Text);
+                    limpiar();
+                    borrarrows(dgvAggProductos);
+                }                 
+
             }
             catch (Exception ex)
             {
@@ -193,7 +203,7 @@ namespace Facturacion
                     txtNombreProEdi.Text = Nombre;
                     txtPrecioEdit.Text = precio;
                     id_pro = int.Parse(idcell);
-
+                    btnEditar.Enabled = true;
                 }
             }
             catch (Exception ex) { }
@@ -211,6 +221,7 @@ namespace Facturacion
                     txtNombreEliminar.Text = Nombre;
                     txtPrecioeliminar.Text = Precio;
                     id_pro = int.Parse(idcell);
+                    btnEliminar.Enabled = true;
                 }
             }
             catch (Exception ex) { }

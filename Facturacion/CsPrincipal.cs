@@ -577,5 +577,29 @@ namespace Facturacion
             cmd.ExecuteNonQuery();
             cerrarconexion();
         }
+
+        public DataGridView buscar_empleado(string campo, string valor, DataGridView dgv)
+        {
+            string sp = "spNewBuscarEmpleado";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@campo", campo);
+            cmd.Parameters.AddWithValue("@valor", valor);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            dgv.DataSource = dt;
+            cerrarconexion();
+            if (dgv.Columns["EMPLEADOID"] != null && dgv.Columns["ROLID"] != null)
+            {
+                dgv.Columns["EMPLEADOID"].Visible = false;
+                dgv.Columns["ROLID"].Visible = false;
+            }
+            return dgv;
+        }
     }
 }

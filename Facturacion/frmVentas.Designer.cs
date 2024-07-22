@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmVentas));
             dataGridView1 = new DataGridView();
             clCliente = new DataGridViewTextBoxColumn();
@@ -64,21 +65,29 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clCliente, clProducto, clCantidad, clPrecio, clSubtotal, cliva, clTotal });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clCliente, clProducto, clCantidad, clPrecio, clSubtotal, cliva, clTotal });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(1112, 455);
+            dataGridView1.Size = new Size(1112, 441);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -127,10 +136,10 @@
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.Anchor = AnchorStyles.Right;
             button1.AutoSize = true;
             button1.Font = new Font("Arial", 12F, FontStyle.Bold);
-            button1.Location = new Point(680, 38);
+            button1.Location = new Point(689, 38);
             button1.Name = "button1";
             button1.Size = new Size(120, 33);
             button1.TabIndex = 1;
@@ -140,10 +149,10 @@
             // 
             // button2
             // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button2.Anchor = AnchorStyles.Right;
             button2.AutoSize = true;
             button2.Font = new Font("Arial", 12F, FontStyle.Bold);
-            button2.Location = new Point(821, 38);
+            button2.Location = new Point(830, 38);
             button2.Name = "button2";
             button2.Size = new Size(120, 33);
             button2.TabIndex = 2;
@@ -153,10 +162,10 @@
             // 
             // button3
             // 
-            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button3.Anchor = AnchorStyles.Right;
             button3.AutoSize = true;
             button3.Font = new Font("Arial", 12F, FontStyle.Bold);
-            button3.Location = new Point(953, 38);
+            button3.Location = new Point(962, 38);
             button3.Name = "button3";
             button3.Size = new Size(128, 33);
             button3.TabIndex = 3;
@@ -265,7 +274,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1116, 89);
+            panel1.Size = new Size(1116, 103);
             panel1.TabIndex = 13;
             panel1.Paint += panel1_Paint;
             // 
@@ -274,9 +283,9 @@
             panel2.BorderStyle = BorderStyle.Fixed3D;
             panel2.Controls.Add(dataGridView1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 89);
+            panel2.Location = new Point(0, 103);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1116, 459);
+            panel2.Size = new Size(1116, 445);
             panel2.TabIndex = 14;
             // 
             // frmVentas
