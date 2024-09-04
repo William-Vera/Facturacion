@@ -94,8 +94,36 @@ namespace Facturacion
 
         private void frmVentas_Load(object sender, EventArgs e)
         {
-            LlenarComboBox("spListarClientes");
-            LlenarComboBox1("spListarProductos");
+            //LlenarComboBox("spListarClientes");
+            //LlenarComboBox1("spListarProductos");
+            dataGridView1.Columns.Clear();
+
+            dataGridView1.Columns.Add("Cliente", "CLIENTE");
+            dataGridView1.Columns.Add("Producto", "PRODUCTO");
+            dataGridView1.Columns.Add("Cantidad", "CANTIDAD");
+            dataGridView1.Columns.Add("Precio", "PRECIO");
+            dataGridView1.Columns.Add("Subtotal", "SUBTOTAL");
+            dataGridView1.Columns.Add("IVA", "IVA");
+            dataGridView1.Columns.Add("Total", "TOTAL");
+
+            var column = new DataGridViewTextBoxColumn();
+            column.Name = "IdProducto";
+            column.Visible = false;
+            dataGridView1.Columns.Add(column);
+
+            DataGridViewImageColumn imgColumn = new DataGridViewImageColumn();
+            imgColumn.Name = "Eliminar";
+            imgColumn.HeaderText = "Eliminar";
+            imgColumn.Image = Properties.Resources.icono_eliminar;
+            imgColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridView1.Columns.Add(imgColumn);
+
+            //DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
+            //btnColumn.Name = "Eliminar";
+            //btnColumn.HeaderText = "ELIMINAR";
+            //btnColumn.Text = "X";
+            //btnColumn.UseColumnTextForButtonValue = true;          
+            //dataGridView1.Columns.Add(btnColumn);
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -108,33 +136,66 @@ namespace Facturacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != null && textBox1.Text != "" && comboBox1.Text!="" && comboBox2.Text != "")
+            if (textBox1.Text != null && textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
             {
                 double valor_iva = 0.15;
                 int cantidad = int.Parse(textBox1.Text);
-                int idprod = int.Parse(objvent.retornar_idproducto(comboBox2.Text, "spRetornaIDproducto"));
+                int idprod = int.Parse(comboBox2.SelectedValue.ToString());
                 double precio = double.Parse(objvent.retornar_precio(idprod, "spretornaprecio"));
                 double subtotal = precio * cantidad;
                 double iva = subtotal * valor_iva;
                 double total = subtotal + subtotal * valor_iva;
 
-                detallesVenta.Add(new DetalleVenta
-                {
-                    NombreProducto = comboBox2.Text,
-                    IdProducto = idprod,
-                    Cantidad = cantidad,
-                    PrecioUnitario = (decimal)precio,
-                    Subtotal = (decimal)subtotal,
-                    IVA = (decimal)iva,
-                    Total = (decimal)total
-                });
+                // Buscar el producto en la lista
+                var detalleExistente = detallesVenta.FirstOrDefault(d => d.IdProducto == idprod);
 
-                dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, (decimal)precio, (decimal)subtotal, (decimal)iva, (decimal)total);
+                if (detalleExistente != null)
+                {
+                    // Actualizar los valores si el producto ya existe
+                    detalleExistente.Cantidad += cantidad;
+                    detalleExistente.Subtotal = detalleExistente.PrecioUnitario * detalleExistente.Cantidad;
+                    detalleExistente.IVA = detalleExistente.Subtotal * (decimal)valor_iva;
+                    detalleExistente.Total = detalleExistente.Subtotal + detalleExistente.IVA;
+
+                    // Actualizar el DataGridView
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        if ((int)row.Cells["IdProducto"].Value == idprod)
+                        {
+                            row.Cells["Cantidad"].Value = detalleExistente.Cantidad;
+                            row.Cells["Subtotal"].Value = detalleExistente.Subtotal;
+                            row.Cells["IVA"].Value = detalleExistente.IVA;
+                            row.Cells["Total"].Value = detalleExistente.Total;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // Agregar el producto si no existe
+                    detallesVenta.Add(new DetalleVenta
+                    {
+                        NombreProducto = comboBox2.Text,
+                        IdProducto = idprod,
+                        Cantidad = cantidad,
+                        PrecioUnitario = (decimal)precio,
+                        Subtotal = (decimal)subtotal,
+                        IVA = (decimal)iva,
+                        Total = (decimal)total
+                    });
+
+                    dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, (decimal)precio, (decimal)subtotal, (decimal)iva, (decimal)total, idprod);
+                }
+
                 comboBox1.Enabled = false;
                 dateTimePicker1.Enabled = false;
+                textBox1.Text = string.Empty;
+                comboBox2.SelectedIndex = -1;
             }
             else
+            {
                 MessageBox.Show("Recuerde que debe llenar los campos necesarios para poder añadir al carrito");
+            }
         }
 
         private void InsertarDetalleVentaEnBD(int idCliente, DateTime fecha)
@@ -145,8 +206,6 @@ namespace Facturacion
             {
                 totalFactura += detalle.Total;
             }
-
-            // Llamar al procedimiento almacenado para insertar la factura y sus detalles
             InsertarVenta(idCliente, fecha, totalFactura);
         }
 
@@ -300,15 +359,17 @@ namespace Facturacion
             comboBox2.Text = string.Empty;
             textBox1.Text = string.Empty;
             dateTimePicker1.Text = string.Empty;
+            comboBox1.DataSource = null;
+            comboBox2.DataSource = null;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             try
             {
-                borrarrows();  // Elimina las filas del DataGridView
-                detallesVenta.Clear();  // Vacía la lista de detalles de la venta
-                limpiar();  // Limpia los controles del formulario
+                borrarrows();
+                detallesVenta.Clear();
+                limpiar();
                 MessageBox.Show("Venta cancelada y datos limpiados correctamente.");
                 comboBox1.Enabled = true;
                 dateTimePicker1.Enabled = true;
@@ -323,7 +384,7 @@ namespace Facturacion
         {
             try
             {
-                dataGridView1.Rows.Clear();  // Elimina todas las filas del DataGridView
+                dataGridView1.Rows.Clear();
             }
             catch (Exception ex)
             {
@@ -333,12 +394,113 @@ namespace Facturacion
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.ColumnIndex == dataGridView1.Columns["Eliminar"].Index && e.RowIndex >= 0)
+            {
+                int idProducto = (int)dataGridView1.Rows[e.RowIndex].Cells["IdProducto"].Value;
+                var detalle = detallesVenta.FirstOrDefault(d => d.IdProducto == idProducto);
+                if (detalle != null)
+                {
+                    detallesVenta.Remove(detalle);
+                }
+                dataGridView1.Rows.RemoveAt(e.RowIndex);
+            }
+        }
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    objvent.cargarvalorescombo(comboBox1.Text, comboBox1);
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void comboBox1_Leave(object sender, EventArgs e)
         {
+            try
+            {
+                bool isValidItem = false;
+                foreach (var item in comboBox1.Items)
+                {
+                    if (comboBox1.Text == ((DataRowView)item)["Nombres"].ToString())
+                    {
+                        isValidItem = true;
+                        break;
+                    }
+                }
 
+                if (!isValidItem)
+                {
+                    comboBox1.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    objvent.cargarproductos(comboBox2.Text, comboBox2);
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox2_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isValidItem = false;
+                foreach (var item in comboBox2.Items)
+                {
+                    if (comboBox2.Text == ((DataRowView)item)["Nombre"].ToString())
+                    {
+                        isValidItem = true;
+                        break;
+                    }
+                }
+
+                if (!isValidItem)
+                {
+                    comboBox2.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox1_DropDown(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+        }
+
+        private void comboBox2_DropDown(object sender, EventArgs e)
+        {
+            comboBox2.SelectedIndex = -1;
         }
     }
 }
