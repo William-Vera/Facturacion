@@ -147,9 +147,9 @@ namespace Facturacion
                 if (e.RowIndex >= 0)
                 {
                     Nombres = dgvEditar.Rows[e.RowIndex].Cells["NOMBRES"].Value.ToString();
-                    Cedula = dgvEditar.Rows[e.RowIndex].Cells["CEDULA"].Value.ToString();
+                    Cedula = dgvEditar.Rows[e.RowIndex].Cells["Nro CEDULA"].Value.ToString();
                     Apellidos = dgvEditar.Rows[e.RowIndex].Cells["APELLIDOS"].Value.ToString();
-                    string idcell = dgvEditar.Rows[e.RowIndex].Cells["IDCLIENTE"].Value.ToString();
+                    string idcell = dgvEditar.Rows[e.RowIndex].Cells["ID CLIENTE"].Value.ToString();
                     txtNombresEditar.Text = Nombres;
                     txtCedulaEditar.Text = Cedula;
                     txtApellidosEditar.Text = Apellidos;
@@ -207,9 +207,9 @@ namespace Facturacion
                 if (e.RowIndex >= 0)
                 {
                     Nombres = dgvEliminar.Rows[e.RowIndex].Cells["NOMBRES"].Value.ToString();
-                    Cedula = dgvEliminar.Rows[e.RowIndex].Cells["CEDULA"].Value.ToString();
+                    Cedula = dgvEliminar.Rows[e.RowIndex].Cells["Nro CEDULA"].Value.ToString();
                     Apellidos = dgvEliminar.Rows[e.RowIndex].Cells["APELLIDOS"].Value.ToString();
-                    string idcell = dgvEliminar.Rows[e.RowIndex].Cells["IDCLIENTE"].Value.ToString();
+                    string idcell = dgvEliminar.Rows[e.RowIndex].Cells["ID CLIENTE"].Value.ToString();
                     txtNombreEliminar.Text = Nombres;
                     txtCedulaEliminar.Text = Cedula;
                     txtApellidoEliminar.Text = Apellidos;

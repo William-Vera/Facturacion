@@ -189,6 +189,8 @@ namespace Facturacion
 
                 comboBox1.Enabled = false;
                 dateTimePicker1.Enabled = false;
+                textBox1.Text = string.Empty;
+                comboBox2.SelectedIndex = -1;
             }
             else
             {

@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Facturacion
 {
     public partial class frmProductos : Form
     {
         csProductos objpro = new csProductos();
-        string Nombre, Precio;
+        string Nombre, Precio, proveedor;
         int id_pro;
         public frmProductos()
         {
@@ -52,6 +53,9 @@ namespace Facturacion
             txtBuscarEliminar.Text = string.Empty;
             btnEditar.Enabled = false;
             btnEliminar.Enabled = false;
+            comboBox4.Text = string.Empty;
+            comboBox5.Text = string.Empty;
+            comboBox6.Text = string.Empty;
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
@@ -98,17 +102,19 @@ namespace Facturacion
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtPrecioProducto.Text)) {
+                if (string.IsNullOrWhiteSpace(txtNombreProducto.Text) || string.IsNullOrWhiteSpace(txtPrecioProducto.Text))
+                {
                     MessageBox.Show("Asegurate de llenar todos los campos");
                 }
                 else
                 {
-                    objpro.ingresar_producto(txtNombreProducto.Text, decimal.Parse(txtPrecioProducto.Text, CultureInfo.InvariantCulture)); ;
+                    int proveedor = int.Parse(comboBox4.SelectedValue.ToString());
+                    objpro.ingresar_producto(txtNombreProducto.Text, decimal.Parse(txtPrecioProducto.Text, CultureInfo.InvariantCulture), proveedor); ;
                     //dgvAggProductos = objpro.listar_productos(dgvAggProductos);
-                    MessageBox.Show("Se ha agregado con exito el producto: "+txtNombreProducto.Text);
+                    MessageBox.Show("Se ha agregado con exito el producto: " + txtNombreProducto.Text);
                     limpiar();
                     borrarrows(dgvAggProductos);
-                }                 
+                }
 
             }
             catch (Exception ex)
@@ -133,11 +139,6 @@ namespace Facturacion
             try
             {
                 dgv.DataSource = null;
-                //while (dgv.Rows.Count > 0)
-                //{
-                //    dgv.Rows.RemoveAt(0);
-                //}
-                //dataGridView1.Rows.Clear();  // Elimina todas las filas del DataGridView
             }
             catch (Exception ex)
             {
@@ -173,7 +174,7 @@ namespace Facturacion
         {
             try
             {
-                objpro.editar_productor(txtNombreProEdi.Text, decimal.Parse(txtPrecioEdit.Text, CultureInfo.InvariantCulture), id_pro);
+                objpro.editar_productor(txtNombreProEdi.Text, decimal.Parse(txtPrecioEdit.Text, CultureInfo.InvariantCulture), id_pro, int.Parse(comboBox5.SelectedValue.ToString()));
                 //dgvEditar = objpro.listar_productos(dgvEditar);
                 limpiar();
                 borrarrows(dgvEditar);
@@ -188,7 +189,8 @@ namespace Facturacion
         {
             try
             {
-
+                csProveedores objprovee = new csProveedores();
+                objprovee.lista_proveedores(comboBox5);
 
                 if (e.RowIndex >= 0)
                 {
@@ -199,6 +201,9 @@ namespace Facturacion
                     string precio = precioDecimal.ToString(CultureInfo.InvariantCulture);
 
                     string idcell = dgvEditar.Rows[e.RowIndex].Cells["IDPRODUCTO"].Value.ToString();
+
+                    comboBox5.DisplayMember = "Proveedor";
+                    comboBox5.ValueMember = "proveedor_id";
 
                     txtNombreProEdi.Text = Nombre;
                     txtPrecioEdit.Text = precio;
@@ -218,8 +223,10 @@ namespace Facturacion
                     Nombre = dgvEliminar.Rows[e.RowIndex].Cells["NOMBRE"].Value.ToString();
                     Precio = dgvEliminar.Rows[e.RowIndex].Cells["PRECIO_UNITARIO"].Value.ToString();
                     string idcell = dgvEliminar.Rows[e.RowIndex].Cells["IDPRODUCTO"].Value.ToString();
+                    proveedor = dgvEliminar.Rows[e.RowIndex].Cells["PROVEEDOR"].Value.ToString();
                     txtNombreEliminar.Text = Nombre;
                     txtPrecioeliminar.Text = Precio;
+                    comboBox6.Text = proveedor;
                     id_pro = int.Parse(idcell);
                     btnEliminar.Enabled = true;
                 }
@@ -314,6 +321,52 @@ namespace Facturacion
         {
             limpiar();
             borrarrows(dgvEliminar);
+        }
+
+        private void comboBox4_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    objpro.cargarvalorescombo(comboBox4.Text, comboBox4);
+                    e.Handled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox4_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isValidItem = false;
+                foreach (var item in comboBox4.Items)
+                {
+                    if (comboBox4.Text == ((DataRowView)item)["Nombre"].ToString())
+                    {
+                        isValidItem = true;
+                        break;
+                    }
+                }
+
+                if (!isValidItem)
+                {
+                    comboBox4.Text = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void comboBox4_DropDown(object sender, EventArgs e)
+        {
+            comboBox4.SelectedIndex = -1;
         }
     }
 }

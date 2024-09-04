@@ -170,6 +170,7 @@
             dgvAgregar.ReadOnly = true;
             dgvAgregar.Size = new Size(1178, 379);
             dgvAgregar.TabIndex = 0;
+            dgvAgregar.CellContentClick += dgvAgregar_CellContentClick;
             // 
             // panel1
             // 
@@ -204,7 +205,7 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.Font = new Font("Times New Roman", 12F);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Cedula", "Nombre", "Apellido", "Usuario", "Rol", "Estado" });
+            comboBox1.Items.AddRange(new object[] { "Cedula", "Nombres", "Apellidos", "Usuario", "Rol", "Estado" });
             comboBox1.Location = new Point(358, 29);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(226, 27);

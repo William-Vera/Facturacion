@@ -322,10 +322,11 @@
             Controls.Add(panel_inferior);
             Controls.Add(panel_central);
             Controls.Add(panel_lateral);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            Text = "GCS FACTURA";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             panel_lateral.ResumeLayout(false);

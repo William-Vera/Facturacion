@@ -75,7 +75,7 @@ namespace Facturacion
             if (string.IsNullOrWhiteSpace(txtcedula.Text) || string.IsNullOrWhiteSpace(txtNombres.Text) ||
                 string.IsNullOrWhiteSpace(txtApellidos.Text) || string.IsNullOrWhiteSpace(txtUser.Text) ||
                 string.IsNullOrWhiteSpace(txtContrasenia.Text) || string.IsNullOrWhiteSpace(comboBox4.Text)
-                || txtcedula.Text.Length<10)
+                || txtcedula.Text.Length < 10)
             {
                 MessageBox.Show("RELLENE TODOS LOS CAMPOS NECESARIOS POR FAVOR :(");
                 return;
@@ -119,11 +119,11 @@ namespace Facturacion
                 {
                     rol = dgvEditar.Rows[e.RowIndex].Cells["ROL"].Value.ToString();
                     usuario = dgvEditar.Rows[e.RowIndex].Cells["USUARIO"].Value.ToString();
-                    Nombres = dgvEditar.Rows[e.RowIndex].Cells["NOMBRE"].Value.ToString();
-                    Cedula = dgvEditar.Rows[e.RowIndex].Cells["CEDULA"].Value.ToString();
-                    Apellidos = dgvEditar.Rows[e.RowIndex].Cells["APELLIDO"].Value.ToString();
+                    Nombres = dgvEditar.Rows[e.RowIndex].Cells["NOMBRES"].Value.ToString();
+                    Cedula = dgvEditar.Rows[e.RowIndex].Cells["Nro CEDULA"].Value.ToString();
+                    Apellidos = dgvEditar.Rows[e.RowIndex].Cells["APELLIDOS"].Value.ToString();
                     estado = bool.Parse(dgvEditar.Rows[e.RowIndex].Cells["ESTADO"].Value.ToString());
-                    string idcell = dgvEditar.Rows[e.RowIndex].Cells["EMPLEADOID"].Value.ToString();
+                    string idcell = dgvEditar.Rows[e.RowIndex].Cells["ID EMPLEADO"].Value.ToString();
 
                     id_empleado = int.Parse(idcell);
                     CsSesionActiva.NombresEmpleadoEditarID = Nombres + " " + Apellidos;
@@ -285,6 +285,11 @@ namespace Facturacion
             {
                 e.Handled = true;
             }
+        }
+
+        private void dgvAgregar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

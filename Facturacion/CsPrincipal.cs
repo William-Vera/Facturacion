@@ -146,7 +146,7 @@ namespace Facturacion
             return dgv;
         }
 
-        public virtual void ingresar_producto(string nombre, decimal precio)
+        public virtual void ingresar_producto(string nombre, decimal precio, int proveedor)
         {
             string sp = "spAgregarProducto";
             abrirconexcion();
@@ -159,11 +159,14 @@ namespace Facturacion
             cmd.Parameters.Add("@Precio", SqlDbType.Decimal);
             cmd.Parameters["@Precio"].Value = precio;
 
+            cmd.Parameters.Add("@Proveedor", SqlDbType.Int);
+            cmd.Parameters["@Proveedor"].Value = proveedor;
+
             cmd.ExecuteNonQuery();
             cerrarconexion();
         }
 
-        public virtual void editar_productor(string nombres, decimal precio, int id)
+        public virtual void editar_productor(string nombres, decimal precio, int id, int proveedor)
         {
             string sp = "spEditarProducto";
             abrirconexcion();
@@ -178,6 +181,9 @@ namespace Facturacion
 
             cmd.Parameters.Add("@id", SqlDbType.Int);
             cmd.Parameters["@id"].Value = id;
+
+            cmd.Parameters.Add("@Proveedor", SqlDbType.Int);
+            cmd.Parameters["@Proveedor"].Value = proveedor;
 
             cmd.ExecuteNonQuery();
             cerrarconexion();
@@ -213,7 +219,27 @@ namespace Facturacion
 
             dgv.DataSource = dt;
             cerrarconexion();
+            dgv.Columns["proveedor_id"].Visible = false;
             return dgv;
+        }
+
+        public void cargarvalorescombo(string searchText, System.Windows.Forms.ComboBox cbx)
+        {
+            string sp = "spObtenerProveedores";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@SearchText", searchText));
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cbx.DisplayMember = "Nombre";
+            cbx.ValueMember = "proveedor_id";
+            cbx.DataSource = dt;
+
+            cerrarconexion();
         }
     }
 
@@ -398,7 +424,7 @@ namespace Facturacion
                     };
                     cmd.Parameters.Add(outputParam);
 
-                    SqlParameter outputNombreVendedor = new SqlParameter("@NombreVendedor", SqlDbType.NVarChar, 50)
+                    SqlParameter outputNombreVendedor = new SqlParameter("@Nombre", SqlDbType.NVarChar, 50)
                     {
                         Direction = ParameterDirection.Output
                     };
@@ -416,7 +442,7 @@ namespace Facturacion
                     };
                     cmd.Parameters.Add(outputID);
 
-                    SqlParameter outputApellido = new SqlParameter("@ApellidoEmpleado", SqlDbType.NVarChar, 50)
+                    SqlParameter outputApellido = new SqlParameter("@Apellido", SqlDbType.NVarChar, 50)
                     {
                         Direction = ParameterDirection.Output
                     };
@@ -620,7 +646,7 @@ namespace Facturacion
 
         public DataGridView buscar_empleado(string campo, string valor, DataGridView dgv)
         {
-            string sp = "spNewBuscarEmpleado";
+            string sp = "spBuscarEmpleado";
             abrirconexcion();
             cmd = new SqlCommand(sp, con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -634,12 +660,32 @@ namespace Facturacion
 
             dgv.DataSource = dt;
             cerrarconexion();
-            if (dgv.Columns["EMPLEADOID"] != null && dgv.Columns["ROLID"] != null)
+            if (dgv.Columns["ID EMPLEADO"] != null && dgv.Columns["ROLID"] != null)
             {
-                dgv.Columns["EMPLEADOID"].Visible = false;
+                dgv.Columns["ID EMPLEADO"].Visible = false;
                 dgv.Columns["ROLID"].Visible = false;
             }
             return dgv;
+        }
+    }
+
+    class csProveedores : CsPrincipal
+    {
+        public System.Windows.Forms.ComboBox lista_proveedores  (System.Windows.Forms.ComboBox cbx)
+        {
+            abrirconexcion();
+            cmd = new SqlCommand("spListarProveedores", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            cbx.DataSource = dt;
+            cerrarconexion();
+            cbx.DisplayMember = "nombre";
+            cbx.ValueMember = "proveedor_id";
+            return cbx;
         }
     }
 }
