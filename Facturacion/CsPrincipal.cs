@@ -687,5 +687,87 @@ namespace Facturacion
             cbx.ValueMember = "proveedor_id";
             return cbx;
         }
+
+        public DataGridView buscar_proveedor(string campo, string valor, DataGridView dgv)
+        {
+            string sp = "spBuscarProveedor";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@campo", campo);
+            cmd.Parameters.AddWithValue("@valor", valor);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+
+            dgv.DataSource = dt;
+            cerrarconexion();
+            return dgv;
+        }
+
+        public virtual void ingresar_proveedores(string nombre, string direccion, string telefono, string email)
+        {
+            string sp = "spInsertarProveedores";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@nombre", SqlDbType.NVarChar);
+            cmd.Parameters["@nombre"].Value = nombre;
+
+            cmd.Parameters.Add("@direccion", SqlDbType.NVarChar);
+            cmd.Parameters["@direccion"].Value = direccion;
+
+            cmd.Parameters.Add("@telefono", SqlDbType.NVarChar);
+            cmd.Parameters["@telefono"].Value = telefono;
+
+            cmd.Parameters.Add("@email", SqlDbType.NVarChar);
+            cmd.Parameters["@email"].Value = email;
+
+            cmd.ExecuteNonQuery();
+            cerrarconexion();
+        }
+
+        public virtual void eliminar_proveedor(int id)
+        {
+            string sp = "spEliminarProveedor";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@id", SqlDbType.Int);
+            cmd.Parameters["@id"].Value = id;
+
+            cmd.ExecuteNonQuery();
+            cerrarconexion();
+        }
+
+        public virtual void editar_proveedor(int idproveedor, string Nombre, string direccion, string telefono, string correo)
+        {
+            string sp = "spEditarProveedor";
+            abrirconexcion();
+            cmd = new SqlCommand(sp, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@id", SqlDbType.Int);
+            cmd.Parameters["@id"].Value = idproveedor;
+
+            cmd.Parameters.Add("@nombre", SqlDbType.NVarChar);
+            cmd.Parameters["@nombre"].Value = Nombre;
+
+            cmd.Parameters.Add("@direccion", SqlDbType.NVarChar);
+            cmd.Parameters["@direccion"].Value = direccion;
+
+            cmd.Parameters.Add("@telefono", SqlDbType.NVarChar);
+            cmd.Parameters["@telefono"].Value = telefono;
+
+            cmd.Parameters.Add("@email", SqlDbType.NVarChar);
+            cmd.Parameters["@email"].Value = correo;
+
+            cmd.ExecuteNonQuery();
+            cerrarconexion();
+        }
     }
 }
