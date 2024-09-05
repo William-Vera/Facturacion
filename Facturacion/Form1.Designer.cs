@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel_lateral = new Panel();
+            btnProveedores = new Button();
             btnEmpleados = new Button();
             panel_iz_inf = new Panel();
             textBox1 = new TextBox();
@@ -61,6 +62,7 @@
             // 
             panel_lateral.AutoScroll = true;
             panel_lateral.BackColor = Color.SteelBlue;
+            panel_lateral.Controls.Add(btnProveedores);
             panel_lateral.Controls.Add(btnEmpleados);
             panel_lateral.Controls.Add(panel_iz_inf);
             panel_lateral.Controls.Add(btn_ventas);
@@ -73,6 +75,24 @@
             panel_lateral.Name = "panel_lateral";
             panel_lateral.Size = new Size(200, 591);
             panel_lateral.TabIndex = 0;
+            // 
+            // btnProveedores
+            // 
+            btnProveedores.BackColor = Color.SteelBlue;
+            btnProveedores.Dock = DockStyle.Top;
+            btnProveedores.FlatAppearance.BorderColor = Color.LightSteelBlue;
+            btnProveedores.FlatAppearance.BorderSize = 0;
+            btnProveedores.FlatStyle = FlatStyle.Flat;
+            btnProveedores.Font = new Font("Times New Roman", 15.75F, FontStyle.Bold);
+            btnProveedores.ForeColor = Color.Black;
+            btnProveedores.Location = new Point(0, 375);
+            btnProveedores.Name = "btnProveedores";
+            btnProveedores.Size = new Size(200, 45);
+            btnProveedores.TabIndex = 10;
+            btnProveedores.Text = "Proveedores";
+            btnProveedores.TextAlign = ContentAlignment.MiddleLeft;
+            btnProveedores.UseVisualStyleBackColor = false;
+            btnProveedores.Click += btnProveedores_Click;
             // 
             // btnEmpleados
             // 
@@ -363,5 +383,6 @@
         private TextBox textBox4;
         private Label label2;
         private Label label1;
+        private Button btnProveedores;
     }
 }

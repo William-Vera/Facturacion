@@ -38,7 +38,7 @@ namespace Facturacion
             btn_productos.Enabled = true;
             btn_ventas.Enabled = true;
             btm_facturas.Enabled = true;
-
+            btnProveedores.Enabled = true;
         }
 
         public void desactivarbotones()
@@ -48,6 +48,7 @@ namespace Facturacion
             btn_productos.Enabled = false;
             btn_ventas.Enabled = false;
             btm_facturas.Enabled = false;
+            btnProveedores.Enabled = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -214,6 +215,14 @@ namespace Facturacion
                 e.Handled = true;
                 verificarusuario();
             }
+        }
+
+        private void btnProveedores_Click(object sender, EventArgs e)
+        {
+            frmProveedores frmprovee = new frmProveedores();
+            frmprovee.MdiParent = this;
+            abrifrm(frmprovee);
+            ocultar();
         }
     }
 }

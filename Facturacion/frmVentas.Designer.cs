@@ -87,59 +87,53 @@
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
             dataGridView1.Size = new Size(1112, 441);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
+            dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
+            dataGridView1.KeyPress += dataGridView1_KeyPress;
             // 
             // clCliente
             // 
             clCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             clCliente.HeaderText = "CLIENTE";
             clCliente.Name = "clCliente";
-            clCliente.ReadOnly = true;
             // 
             // clProducto
             // 
             clProducto.HeaderText = "PRODUCTO";
             clProducto.Name = "clProducto";
-            clProducto.ReadOnly = true;
             // 
             // clCantidad
             // 
             clCantidad.HeaderText = "CANTIDAD";
             clCantidad.Name = "clCantidad";
-            clCantidad.ReadOnly = true;
             // 
             // clPrecio
             // 
             clPrecio.HeaderText = "PRECIO";
             clPrecio.Name = "clPrecio";
-            clPrecio.ReadOnly = true;
             // 
             // clSubtotal
             // 
             clSubtotal.HeaderText = "SUBTOTAL";
             clSubtotal.Name = "clSubtotal";
-            clSubtotal.ReadOnly = true;
             // 
             // cliva
             // 
             cliva.HeaderText = "IVA";
             cliva.Name = "cliva";
-            cliva.ReadOnly = true;
             // 
             // clTotal
             // 
             clTotal.HeaderText = "TOTAL";
             clTotal.Name = "clTotal";
-            clTotal.ReadOnly = true;
             // 
             // Eliminar
             // 
             Eliminar.HeaderText = "ELIMINAR";
             Eliminar.Name = "Eliminar";
-            Eliminar.ReadOnly = true;
             // 
             // button1
             // 
@@ -331,6 +325,10 @@
         private Label label2;
         private Label label3;
         private Label label4;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private ImageList imageList1;
+        private Panel panel1;
+        private Panel panel2;
         private DataGridViewTextBoxColumn clCliente;
         private DataGridViewTextBoxColumn clProducto;
         private DataGridViewTextBoxColumn clCantidad;
@@ -338,10 +336,6 @@
         private DataGridViewTextBoxColumn clSubtotal;
         private DataGridViewTextBoxColumn cliva;
         private DataGridViewTextBoxColumn clTotal;
-        private System.Drawing.Printing.PrintDocument printDocument1;
-        private ImageList imageList1;
-        private Panel panel1;
-        private Panel panel2;
         private DataGridViewTextBoxColumn Eliminar;
     }
 }

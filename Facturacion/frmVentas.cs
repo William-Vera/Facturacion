@@ -124,6 +124,13 @@ namespace Facturacion
             //btnColumn.Text = "X";
             //btnColumn.UseColumnTextForButtonValue = true;          
             //dataGridView1.Columns.Add(btnColumn);
+            dataGridView1.Columns["Cantidad"].ReadOnly = false;
+            dataGridView1.Columns["Precio"].ReadOnly = true;
+            dataGridView1.Columns["Subtotal"].ReadOnly = true;
+            dataGridView1.Columns["IVA"].ReadOnly = true;
+            dataGridView1.Columns["Total"].ReadOnly = true;
+            dataGridView1.Columns["Producto"].ReadOnly = true;
+            dataGridView1.Columns["Cliente"].ReadOnly = true;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -138,53 +145,40 @@ namespace Facturacion
         {
             if (textBox1.Text != null && textBox1.Text != "" && comboBox1.Text != "" && comboBox2.Text != "")
             {
-                double valor_iva = 0.15;
+                decimal valor_iva = 0.15m;
                 int cantidad = int.Parse(textBox1.Text);
                 int idprod = int.Parse(comboBox2.SelectedValue.ToString());
-                double precio = double.Parse(objvent.retornar_precio(idprod, "spretornaprecio"));
-                double subtotal = precio * cantidad;
-                double iva = subtotal * valor_iva;
-                double total = subtotal + subtotal * valor_iva;
+                decimal precio = decimal.Parse(objvent.retornar_precio(idprod, "spretornaprecio"));
+                decimal subtotal = precio * cantidad;
+                decimal iva = subtotal * valor_iva;
+                decimal total = subtotal + iva;
 
-                // Buscar el producto en la lista
-                var detalleExistente = detallesVenta.FirstOrDefault(d => d.IdProducto == idprod);
-
-                if (detalleExistente != null)
+                // Verificar si el producto ya está en el carrito (DataGridView)
+                bool productoExistente = false;
+                foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    // Actualizar los valores si el producto ya existe
-                    detalleExistente.Cantidad += cantidad;
-                    detalleExistente.Subtotal = detalleExistente.PrecioUnitario * detalleExistente.Cantidad;
-                    detalleExistente.IVA = detalleExistente.Subtotal * (decimal)valor_iva;
-                    detalleExistente.Total = detalleExistente.Subtotal + detalleExistente.IVA;
-
-                    // Actualizar el DataGridView
-                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    if ((int)row.Cells["IdProducto"].Value == idprod)
                     {
-                        if ((int)row.Cells["IdProducto"].Value == idprod)
-                        {
-                            row.Cells["Cantidad"].Value = detalleExistente.Cantidad;
-                            row.Cells["Subtotal"].Value = detalleExistente.Subtotal;
-                            row.Cells["IVA"].Value = detalleExistente.IVA;
-                            row.Cells["Total"].Value = detalleExistente.Total;
-                            break;
-                        }
+                        // Actualizar la fila existente
+                        int nuevaCantidad = (int)row.Cells["Cantidad"].Value + cantidad;
+                        decimal nuevoSubtotal = precio * nuevaCantidad;
+                        decimal nuevoIva = nuevoSubtotal * valor_iva;
+                        decimal nuevoTotal = nuevoSubtotal + nuevoIva;
+
+                        row.Cells["Cantidad"].Value = nuevaCantidad;
+                        row.Cells["Subtotal"].Value = nuevoSubtotal;
+                        row.Cells["IVA"].Value = nuevoIva;
+                        row.Cells["Total"].Value = nuevoTotal;
+
+                        productoExistente = true;
+                        break;
                     }
                 }
-                else
-                {
-                    // Agregar el producto si no existe
-                    detallesVenta.Add(new DetalleVenta
-                    {
-                        NombreProducto = comboBox2.Text,
-                        IdProducto = idprod,
-                        Cantidad = cantidad,
-                        PrecioUnitario = (decimal)precio,
-                        Subtotal = (decimal)subtotal,
-                        IVA = (decimal)iva,
-                        Total = (decimal)total
-                    });
 
-                    dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, (decimal)precio, (decimal)subtotal, (decimal)iva, (decimal)total, idprod);
+                if (!productoExistente)
+                {
+                    // Agregar nueva fila al DataGridView
+                    dataGridView1.Rows.Add(comboBox1.Text, comboBox2.Text, cantidad, precio, subtotal, iva, total, idprod);
                 }
 
                 comboBox1.Enabled = false;
@@ -258,18 +252,67 @@ namespace Facturacion
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count > 0 && textBox1.Text != null)
+            if (dataGridView1.Rows.Count > 0)
             {
                 comboBox1.Enabled = true;
                 dateTimePicker1.Enabled = true;
+
+                // Limpiar la lista de detalles para evitar duplicados en ventas posteriores
+                detallesVenta.Clear();
+
+                // Recorrer el DataGridView y agregar cada fila a la lista de detallesVenta
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    // Asegúrate de que la fila no sea una fila nueva (puede no contener valores válidos)
+                    if (row.IsNewRow) continue;
+
+                    int idProducto;
+                    int cantidad;
+                    decimal precio;
+                    decimal subtotal;
+                    decimal iva;
+                    decimal total;
+
+                    bool idProductoValid = int.TryParse(row.Cells["IdProducto"].Value?.ToString(), out idProducto);
+                    bool cantidadValid = int.TryParse(row.Cells["Cantidad"].Value?.ToString(), out cantidad);
+                    bool precioValid = decimal.TryParse(row.Cells["Precio"].Value?.ToString(), out precio);
+                    bool subtotalValid = decimal.TryParse(row.Cells["Subtotal"].Value?.ToString(), out subtotal);
+                    bool ivaValid = decimal.TryParse(row.Cells["IVA"].Value?.ToString(), out iva);
+                    bool totalValid = decimal.TryParse(row.Cells["Total"].Value?.ToString(), out total);
+
+                    if (idProductoValid && cantidadValid && precioValid && subtotalValid && ivaValid && totalValid)
+                    {
+                        detallesVenta.Add(new DetalleVenta
+                        {
+                            NombreProducto = row.Cells["Producto"].Value?.ToString(),
+                            IdProducto = idProducto,
+                            Cantidad = cantidad,
+                            PrecioUnitario = precio,
+                            Subtotal = subtotal,
+                            IVA = iva,
+                            Total = total
+                        });
+                    }
+                    else
+                    {
+                        // Opcional: Mostrar un mensaje de advertencia o manejar el caso en que la conversión falla
+                        MessageBox.Show("Error en los datos de una o más filas. Verifica que todos los valores sean válidos.");
+                    }
+                }
+
+
+                // Insertar la venta y sus detalles en la base de datos
                 DateTime fecha = DateTime.Now;
                 InsertarDetalleVentaEnBD(int.Parse(comboBox1.SelectedValue.ToString()), fecha);
+
                 imprimirfact();
                 limpiar();
                 borrarrows();
             }
             else
-                MessageBox.Show("Debe agregar almenos un 1 producto al carrito");
+            {
+                MessageBox.Show("Debe agregar al menos un producto al carrito.");
+            }
         }
 
 
@@ -501,6 +544,62 @@ namespace Facturacion
         private void comboBox2_DropDown(object sender, EventArgs e)
         {
             comboBox2.SelectedIndex = -1;
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Cantidad")
+            {
+                // Inicializar variables para almacenar los valores convertidos
+                int cantidad;
+                decimal precio;
+
+                // Intentar convertir el valor de la celda "Cantidad" a entero
+                bool cantidadConvertida = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells["Cantidad"].Value?.ToString(), out cantidad);
+                // Intentar convertir el valor de la celda "Precio" a decimal
+                bool precioConvertido = decimal.TryParse(dataGridView1.Rows[e.RowIndex].Cells["Precio"].Value?.ToString(), out precio);
+
+                // Solo recalcular si ambas conversiones son exitosas
+                if (cantidadConvertida && precioConvertido)
+                {
+                    // Recalcular Subtotal, IVA y Total
+                    decimal subtotal = precio * cantidad;
+                    decimal iva = subtotal * 0.15m;
+                    decimal total = subtotal + iva;
+
+                    // Actualizar las celdas correspondientes
+                    dataGridView1.Rows[e.RowIndex].Cells["Subtotal"].Value = subtotal;
+                    dataGridView1.Rows[e.RowIndex].Cells["IVA"].Value = iva;
+                    dataGridView1.Rows[e.RowIndex].Cells["Total"].Value = total;
+                }
+                else
+                {
+                    // Manejar el caso en que la conversión falla (opcional)
+                    // Puedes establecer valores predeterminados o mostrar un mensaje al usuario
+                    MessageBox.Show("Error en la conversión de datos. Asegúrate de que la cantidad y el precio sean valores válidos.");
+                }
+            }
+        }
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dataGridView1.CurrentCell.ColumnIndex == dataGridView1.Columns["Cantidad"].Index)
+            {
+                TextBox txt = e.Control as TextBox;
+                if (txt != null)
+                {
+                    txt.KeyPress -= new KeyPressEventHandler(dataGridView1_KeyPress);
+                    txt.KeyPress += new KeyPressEventHandler(dataGridView1_KeyPress);
+                }
+            }
+        }
+
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
